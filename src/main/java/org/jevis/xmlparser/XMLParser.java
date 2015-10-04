@@ -40,7 +40,47 @@ import org.w3c.dom.NodeList;
  * @author bf
  */
 public class XMLParser implements Parser {
+    // interfaces
+    interface XML extends DataCollectorTypes.Parser {
 
+        public final static String NAME = "XML Parser";
+        public final static String GENERAL_TAG = "General Tag";
+        public final static String SPECIFICATION_TAG = "Specification Tag";
+        public final static String SPECIFICATION_ATTRIBUTE = "Specification In Attribute";
+        public final static String VALUE_TAG = "Value Tag";
+        public final static String VALUE_IN_ATTRIBUTE = "Value In Attribute";
+        public final static String DATE_TAG = "Date Tag";
+        public final static String DATE_IN_ATTRIBUTE = "Date In Attribute";
+        public final static String TIME_TAG = "Time Tag";
+        public final static String TIME_IN_ATTRIBUTE = "Time In Attribute";
+        public final static String MAIN_ELEMENT = "Main Element";
+        public final static String MAIN_ATTRIBUTE = "Main Attribute";
+        public final static String DATE_ELEMENT = "Date Element";
+        public final static String DATE_ATTRIBUTE = "Date Attribute";
+        public final static String DATE_IN_ELEMENT = "Date in Element";
+        public final static String VALUE_ELEMENT = "Value Element";
+        public final static String VALUE_ATTRIBUTE = "Value Attribute";
+        public final static String VALUE_IN_ELEMENT = "Value in Element";
+        public final static String DATE_FORMAT = "Date Format";
+        public final static String DECIMAL_SEPERATOR = "Decimal Separator";
+        public final static String TIME_FORMAT = "Time Format";
+        public final static String THOUSAND_SEPERATOR = "Thousand Separator";
+    }
+
+    interface XMLDataPointDirectory extends DataCollectorTypes.DataPointDirectory {
+
+        public final static String NAME = "XML Data Point Directory";
+    }
+    
+    interface XMLDataPoint extends DataCollectorTypes.DataPoint {
+
+        public final static String NAME = "XML Data Point";
+        public final static String MAPPING_IDENTIFIER = "Mapping Identifier";
+        public final static String VALUE_INDEX = "Value Identifier";
+        public final static String TARGET = "Target";
+    }
+
+    // member variables
 //        private List<XMLDatapointParser> _datapointParsers = new ArrayList<XMLDatapointParser>();
     private String _dateFormat;
     private String _timeFormat;
@@ -123,9 +163,9 @@ public class XMLParser implements Parser {
             try {
                 JEVisClass dpClass = dp.getJEVisClass();
 
-                JEVisType mappingIdentifierType = dpClass.getType(DataCollectorTypes.DataPoint.XMLDataPoint.MAPPING_IDENTIFIER);
-                JEVisType targetType = dpClass.getType(DataCollectorTypes.DataPoint.XMLDataPoint.TARGET);
-                JEVisType valueIdentifierType = dpClass.getType(DataCollectorTypes.DataPoint.XMLDataPoint.VALUE_INDEX);
+                JEVisType mappingIdentifierType = dpClass.getType(XMLDataPoint.MAPPING_IDENTIFIER);
+                JEVisType targetType = dpClass.getType(XMLDataPoint.TARGET);
+                JEVisType valueIdentifierType = dpClass.getType(XMLDataPoint.VALUE_INDEX);
 
                 Long datapointID = dp.getID();
                 String mappingIdentifier = DatabaseHelper.getObjectAsString(dp, mappingIdentifierType);
@@ -226,19 +266,19 @@ public class XMLParser implements Parser {
         try {
             JEVisClass jeClass = parserObject.getJEVisClass();
 
-            JEVisType dateFormatType = jeClass.getType(DataCollectorTypes.Parser.XMLParser.DATE_FORMAT);
-            JEVisType timeFormatType = jeClass.getType(DataCollectorTypes.Parser.XMLParser.TIME_FORMAT);
-            JEVisType decimalSeperatorType = jeClass.getType(DataCollectorTypes.Parser.XMLParser.DECIMAL_SEPERATOR);
-            JEVisType thousandSeperatorType = jeClass.getType(DataCollectorTypes.Parser.XMLParser.THOUSAND_SEPERATOR);
+            JEVisType dateFormatType = jeClass.getType(XML.DATE_FORMAT);
+            JEVisType timeFormatType = jeClass.getType(XML.TIME_FORMAT);
+            JEVisType decimalSeperatorType = jeClass.getType(XML.DECIMAL_SEPERATOR);
+            JEVisType thousandSeperatorType = jeClass.getType(XML.THOUSAND_SEPERATOR);
 
-            JEVisType mainElementType = jeClass.getType(DataCollectorTypes.Parser.XMLParser.XMLParser.MAIN_ELEMENT);
-            JEVisType mainAttributeType = jeClass.getType(DataCollectorTypes.Parser.XMLParser.XMLParser.MAIN_ATTRIBUTE);
-            JEVisType valueElementType = jeClass.getType(DataCollectorTypes.Parser.XMLParser.XMLParser.VALUE_ELEMENT);
-            JEVisType valueAttributeType = jeClass.getType(DataCollectorTypes.Parser.XMLParser.XMLParser.VALUE_ATTRIBUTE);
-            JEVisType valueInElement = jeClass.getType(DataCollectorTypes.Parser.XMLParser.XMLParser.VALUE_IN_ELEMENT);
-            JEVisType dateElementType = jeClass.getType(DataCollectorTypes.Parser.XMLParser.XMLParser.DATE_ELEMENT);
-            JEVisType dateAttributeType = jeClass.getType(DataCollectorTypes.Parser.XMLParser.XMLParser.DATE_ATTRIBUTE);
-            JEVisType dateInElement = jeClass.getType(DataCollectorTypes.Parser.XMLParser.XMLParser.DATE_IN_ELEMENT);
+            JEVisType mainElementType = jeClass.getType(XML.MAIN_ELEMENT);
+            JEVisType mainAttributeType = jeClass.getType(XML.MAIN_ATTRIBUTE);
+            JEVisType valueElementType = jeClass.getType(XML.VALUE_ELEMENT);
+            JEVisType valueAttributeType = jeClass.getType(XML.VALUE_ATTRIBUTE);
+            JEVisType valueInElement = jeClass.getType(XML.VALUE_IN_ELEMENT);
+            JEVisType dateElementType = jeClass.getType(XML.DATE_ELEMENT);
+            JEVisType dateAttributeType = jeClass.getType(XML.DATE_ATTRIBUTE);
+            JEVisType dateInElement = jeClass.getType(XML.DATE_IN_ELEMENT);
 
             _dateFormat = DatabaseHelper.getObjectAsString(parserObject, dateFormatType);
             org.apache.log4j.Logger.getLogger(this.getClass().getName()).log(org.apache.log4j.Level.ALL, "DateFormat: " + _dateFormat);
@@ -272,9 +312,9 @@ public class XMLParser implements Parser {
 
     private void initializeXMLDataPointParser(JEVisObject parserObject) {
         try {
-            JEVisClass dirClass = parserObject.getDataSource().getJEVisClass(DataCollectorTypes.DataPointDirectory.XMLDataPointDirectory.NAME);
+            JEVisClass dirClass = parserObject.getDataSource().getJEVisClass(XMLDataPointDirectory.NAME);
             JEVisObject dir = parserObject.getChildren(dirClass, true).get(0);
-            JEVisClass dpClass = parserObject.getDataSource().getJEVisClass(DataCollectorTypes.DataPoint.XMLDataPoint.NAME);
+            JEVisClass dpClass = parserObject.getDataSource().getJEVisClass(XMLDataPoint.NAME);
             _dataPoints = dir.getChildren(dpClass, true);
         } catch (JEVisException ex) {
             java.util.logging.Logger.getLogger(XMLParser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
