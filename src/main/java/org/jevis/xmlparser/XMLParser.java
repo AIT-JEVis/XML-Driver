@@ -75,6 +75,44 @@ public class XMLParser {
         public final static String TARGET = "Target";
     }
 
+        public final static String NAME = "XML Parser";
+        public final static String GENERAL_TAG = "General Tag";
+        public final static String SPECIFICATION_TAG = "Specification Tag";
+        public final static String SPECIFICATION_ATTRIBUTE = "Specification In Attribute";
+        public final static String VALUE_TAG = "Value Tag";
+        public final static String VALUE_IN_ATTRIBUTE = "Value In Attribute";
+        public final static String DATE_TAG = "Date Tag";
+        public final static String DATE_IN_ATTRIBUTE = "Date In Attribute";
+        public final static String TIME_TAG = "Time Tag";
+        public final static String TIME_IN_ATTRIBUTE = "Time In Attribute";
+        public final static String MAIN_ELEMENT = "Main Element";
+        public final static String MAIN_ATTRIBUTE = "Main Attribute";
+        public final static String DATE_ELEMENT = "Date Element";
+        public final static String DATE_ATTRIBUTE = "Date Attribute";
+        public final static String DATE_IN_ELEMENT = "Date in Element";
+        public final static String VALUE_ELEMENT = "Value Element";
+        public final static String VALUE_ATTRIBUTE = "Value Attribute";
+        public final static String VALUE_IN_ELEMENT = "Value in Element";
+        public final static String DATE_FORMAT = "Date Format";
+        public final static String DECIMAL_SEPERATOR = "Decimal Separator";
+        public final static String TIME_FORMAT = "Time Format";
+        public final static String THOUSAND_SEPERATOR = "Thousand Separator";
+    }
+
+    interface XMLDataPointDirectory extends DataCollectorTypes.DataPointDirectory {
+
+        public final static String NAME = "XML Data Point Directory";
+    }
+    
+    interface XMLDataPoint extends DataCollectorTypes.DataPoint {
+
+        public final static String NAME = "XML Data Point";
+        public final static String MAPPING_IDENTIFIER = "Mapping Identifier";
+        public final static String VALUE_INDEX = "Value Identifier";
+        public final static String TARGET = "Target";
+    }
+
+    // member variables
 //        private List<XMLDatapointParser> _datapointParsers = new ArrayList<XMLDatapointParser>();
     private String _dateFormat;
     private String _timeFormat;
@@ -238,56 +276,10 @@ public class XMLParser {
         this._dateFormat = _dateFormat;
     }
 
+    }
+
     public void setTimeFormat(String _timeFormat) {
         this._timeFormat = _timeFormat;
-    }
-
-    public void setDecimalSeperator(String _decimalSeperator) {
-        this._decimalSeperator = _decimalSeperator;
-    }
-
-    public void setThousandSeperator(String _thousandSeperator) {
-        this._thousandSeperator = _thousandSeperator;
-    }
-
-    public void setMainElement(String _mainElement) {
-        this._mainElement = _mainElement;
-    }
-
-    public void setMainAttribute(String _mainAttribute) {
-        this._mainAttribute = _mainAttribute;
-    }
-
-    public void setValueElement(String _valueElement) {
-        this._valueElement = _valueElement;
-    }
-
-    public void setValueAtribute(String _valueAtribute) {
-        this._valueAtribute = _valueAtribute;
-    }
-
-    public void setValueInElement(Boolean _valueInElement) {
-        this._valueInElement = _valueInElement;
-    }
-
-    public void setDateElement(String _dateElement) {
-        this._dateElement = _dateElement;
-    }
-
-    public void setDateAttribute(String _dateAttribute) {
-        this._dateAttribute = _dateAttribute;
-    }
-
-    public void setDateInElement(Boolean _dateInElement) {
-        this._dateInElement = _dateInElement;
-    }
-
-    public void setDataPoints(List<DataPoint> _dataPoints) {
-        this._dataPoints = _dataPoints;
-    }
-
-    public void setConverter(Converter _converter) {
-        this._converter = _converter;
     }
 
 }
